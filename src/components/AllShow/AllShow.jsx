@@ -1,6 +1,7 @@
 import Loader from "../Loader";
 import ShowCard from "../ShowCard/ShowCard";
 import useShowData from "../../hooks/useShowData";
+import ErrorPage from "../../pages/ErrorPage/ErrorPage";
 
 const AllShow = () => {
   const [shows, isPending, error] = useShowData();
@@ -8,7 +9,7 @@ const AllShow = () => {
     <Loader></Loader>;
   }
   if (error) {
-    //
+    <ErrorPage></ErrorPage>;
   }
   return (
     <div>

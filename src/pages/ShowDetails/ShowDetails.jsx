@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import useShowData from "../../hooks/useShowData";
 import { useEffect, useState } from "react";
+import Loader from "../../components/Loader";
+import ErrorPage from "../ErrorPage/ErrorPage";
 
 const ShowDetails = () => {
   const [showDetails, setShowDetails] = useState("");
@@ -8,6 +10,12 @@ const ShowDetails = () => {
   // console.log(id);
   const [shows, isPending, error] = useShowData();
   // console.log(shows);
+  if (isPending) {
+    <Loader></Loader>;
+  }
+  if (error) {
+    <ErrorPage></ErrorPage>;
+  }
   useEffect(() => {
     const details = shows?.find((showItem) => showItem?.show?.id == id);
     // console.log(details);
@@ -80,7 +88,7 @@ const ShowDetails = () => {
                       <div className="input-group">
                         <input
                           required
-                          value={showDetails?.show?.name}
+                          defaultValue={showDetails?.show?.name}
                           type="text"
                           name="showName"
                           className="form-control"
