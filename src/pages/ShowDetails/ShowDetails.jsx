@@ -1,4 +1,4 @@
-import { json, useParams } from "react-router-dom";
+import { json, useNavigate, useParams } from "react-router-dom";
 import useShowData from "../../hooks/useShowData";
 import { useEffect, useState } from "react";
 import Loader from "../../components/Loader";
@@ -6,6 +6,7 @@ import ErrorPage from "../ErrorPage/ErrorPage";
 import Swal from "sweetalert2";
 
 const ShowDetails = () => {
+  const navigate = useNavigate();
   const [showDetails, setShowDetails] = useState("");
   const { id } = useParams();
   // console.log(id);
@@ -61,9 +62,27 @@ const ShowDetails = () => {
     if (!LSData) {
       bookedData.push(customerInfo);
       localStorage.setItem("booked-show", JSON.stringify(bookedData));
+      Swal.fire({
+        position: "top",
+        icon: "success",
+        title: "Show booked successfully ",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      // navigate("/");
+      // location.reload();
     } else {
       bookedData.push(...LSData, customerInfo);
       localStorage.setItem("booked-show", JSON.stringify(bookedData));
+      Swal.fire({
+        position: "top",
+        icon: "success",
+        title: "Show booked successfully ",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      // navigate("/");
+      // location.reload();
     }
   };
 
@@ -105,62 +124,66 @@ const ShowDetails = () => {
                     id="staticBackdropLabel"
                   >
                     {/* show name */}
-                    <div className="mb-2">
-                      <label className="form-label">Name</label>
-                      <div className="input-group">
-                        <input
-                          required
-                          defaultValue={showDetails?.show?.name}
-                          type="text"
-                          name="showName"
-                          className="form-control"
-                          id="basic-url"
-                          aria-describedby="basic-addon3 basic-addon4"
-                        />
+                    <div className="d-flex">
+                      <div className=" me-2 mb-3">
+                        <label className="form-label">Name</label>
+                        <div className="input-group">
+                          <input
+                            required
+                            defaultValue={showDetails?.show?.name}
+                            type="text"
+                            name="showName"
+                            className="form-control"
+                            id="basic-url"
+                            aria-describedby="basic-addon3 basic-addon4"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    {/* customer name */}
-                    <div className="mb-2">
-                      <label className="form-label">Your Name</label>
-                      <div className="input-group">
-                        <input
-                          required
-                          type="text"
-                          placeholder="Type Your Name"
-                          name="name"
-                          className="form-control"
-                          id="basic-url"
-                          aria-describedby="basic-addon3 basic-addon4"
-                        />
+                      {/* customer name */}
+                      <div className="me-2">
+                        <label className="form-label">Your Name</label>
+                        <div className="input-group">
+                          <input
+                            required
+                            type="text"
+                            placeholder="Type Your Name"
+                            name="name"
+                            className="form-control"
+                            id="basic-url"
+                            aria-describedby="basic-addon3 basic-addon4"
+                          />
+                        </div>
                       </div>
                     </div>
                     {/* customer phone number */}
-                    <div className="mb-2">
-                      <label className="form-label">Phone Number</label>
-                      <div className="input-group">
-                        <input
-                          required
-                          placeholder="Type  Phone Number"
-                          type="number"
-                          name="number"
-                          className="form-control"
-                          id="basic-url"
-                          aria-describedby="basic-addon3 basic-addon4"
-                        />
+                    <div className="d-flex mb-3 ">
+                      <div className="me-2">
+                        <label className="form-label">Phone Number</label>
+                        <div className="input-group">
+                          <input
+                            required
+                            placeholder="Type  Phone Number"
+                            type="number"
+                            name="number"
+                            className="form-control"
+                            id="basic-url"
+                            aria-describedby="basic-addon3 basic-addon4"
+                          />
+                        </div>
                       </div>
-                    </div>
-                    {/* booking date */}
-                    <div className="mb-2">
-                      <label className="form-label">Select date</label>
-                      <div className="input-group">
-                        <input
-                          required
-                          type="date"
-                          name="date"
-                          className="form-control"
-                          id="basic-url"
-                          aria-describedby="basic-addon3 basic-addon4"
-                        />
+                      {/* booking date */}
+                      <div className="mb-2">
+                        <label className="form-label">Select date</label>
+                        <div className="input-group">
+                          <input
+                            required
+                            type="date"
+                            name="date"
+                            className="form-control"
+                            id="basic-url"
+                            aria-describedby="basic-addon3 basic-addon4"
+                          />
+                        </div>
                       </div>
                     </div>
                     {/* Hall */}

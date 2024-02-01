@@ -2,7 +2,7 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
       <div className="container-xxl">
-        <a className="navbar-brand h5" href="#">
+        <a className="navbar-brand h5" href="/">
           SHOW UI
         </a>
         <button
