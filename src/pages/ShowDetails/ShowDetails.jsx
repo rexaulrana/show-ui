@@ -1,8 +1,9 @@
-import { useParams } from "react-router-dom";
+import { json, useParams } from "react-router-dom";
 import useShowData from "../../hooks/useShowData";
 import { useEffect, useState } from "react";
 import Loader from "../../components/Loader";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import Swal from "sweetalert2";
 
 const ShowDetails = () => {
   const [showDetails, setShowDetails] = useState("");
@@ -35,6 +36,16 @@ const ShowDetails = () => {
     const date = form.date.value;
     const number = form.number.value;
     const hall = form.hall.value;
+    if (hall == "Hall List") {
+      Swal.fire({
+        position: "top",
+        icon: "error",
+        title: "Please select Hall Name ",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      return;
+    }
     const customerInfo = {
       showName: showDetails?.show?.name,
       customerName,
@@ -42,9 +53,20 @@ const ShowDetails = () => {
       number,
       hall,
     };
-    console.log(customerInfo);
-    localStorage.getItem("booked-show");
+    // console.log(customerInfo);
+
+    // save booking data to local storage
+    const bookedData = [];
+    const LSData = JSON.parse(localStorage.getItem("booked-show"));
+    if (!LSData) {
+      bookedData.push(customerInfo);
+      localStorage.setItem("booked-show", JSON.stringify(bookedData));
+    } else {
+      bookedData.push(...LSData, customerInfo);
+      localStorage.setItem("booked-show", JSON.stringify(bookedData));
+    }
   };
+
   return (
     <div>
       <h3 className="text-center mt-3">Show Details</h3>
@@ -118,6 +140,7 @@ const ShowDetails = () => {
                       <div className="input-group">
                         <input
                           required
+                          placeholder="Type  Phone Number"
                           type="number"
                           name="number"
                           className="form-control"
@@ -150,7 +173,7 @@ const ShowDetails = () => {
                           className="form-select"
                           aria-label="Default select example"
                         >
-                          <option defaultValue>Open this select menu</option>
+                          <option defaultValue>Hall List</option>
                           <option>Hall one</option>
                           <option>Hall Two</option>
                           <option>Hall Three</option>

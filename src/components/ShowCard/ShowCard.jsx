@@ -7,9 +7,9 @@ const ShowCard = ({ showItem }) => {
   return (
     <div className="show-card">
       <div>
-        {image?.medium ? (
+        {image?.original ? (
           <img
-            src={image?.medium}
+            src={image?.original}
             className="card-img-top img-thumbnail show-img rounded "
             alt="..."
           />
